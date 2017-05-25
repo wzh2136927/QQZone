@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		 
+		<link rel="stylesheet" href="styles/login.css" />
+		<script type="text/javascript" src="scripts/jquery.min.js">
+</script>
+		<script type="text/javascript" src="scripts/base64.js">
+
+</script>
+		<script type="text/javascript" src="scripts/cookie_util.js">
+
+</script>
+<!-- 登录脚本 -->
+		<script type="text/javascript">
+      $(function(){
+       $("#login").click(
+	
+			function() {
+				 	//alert(111);
+				var flag = true;
+				$("#number_msg").html("");
+				$("#password_msg").html("");
+				var number = $("#number").val().trim();
+				 
+				var password = $("#password").val().trim();
+                   
+				if (number== "") {
+					$("#number_msg").html("账号为空");
+					flag = false;
+				}
+				if (password == "") {
+					$("#password_msg").html("密码为空");
+					flag = false;
+				}
+
+				if (flag) {
+
+					var msg = number + ":" + password;
+					var base64_msg = Base64.encode(msg);
+					 
+					$.ajax( {
+						url : "http://localhost:8088/QQZone/user/login.do",
+						type : "post",
+						beforeSend : function(xhr) {
+							xhr.setRequestHeader("Authorization", "Basic "
+									+ base64_msg);
+
+						},
+						dataType : "json",
+						success : function(result) {
+							if (result.status == 0) {
+							alert("登陆成功");
+								//将用户身份信息放入cookie
+								/*
+						var token = result.data.userToken;
+						var uid = result.data.userId;
+						addCookie("userId", uid, 0.5);
+						addCookie("userToken", token, 0.5);
+						*/
+						var qq_user_id=result.data.qq_user_id;
+						var qq_user_name=result.data.qq_user_name;
+						addCookie("userId",qq_user_id, 0.5);
+						addCookie("userName",qq_user_name,0.5);
+						window.location.href = "QQZone.html";
+					} else if (result.status == 1) {
+						$("#number_msg").html(result.msg);
+					} else if (result.status == 2) {
+						$("#password_msg").html(result.msg);
+					}
+
+				} 
+				 
+					});
+
+				}
+
+			});
+			
+			 
+});
+       
+       
+       
+</script>
+
+
+<!-- 注册脚本 -->
+		<script type="text/javascript">
+$(function() {
+	//还有注册数据格式的检查
+	//注册按钮单机处理
+	//获取要提交的数据
+	$("#regist_button").click(function() {
+	 
+		$("#warning_4 span").html("");
+		$("#warning_2 span").html("");
+		$("#warning_3 span").html("");
+		 
+		var nickname = $("#nickname").val().trim();
+		var password = $("#regist_password").val().trim();
+		var repassword = $("#final_password").val().trim();
+		var flag = true;
+		 
+		if (nickname == "") {
+			$("#warning_4 span").html("昵称为空");
+			$("#warning_4").show();
+			flag = false;
+		}
+		if (password == "") {
+			$("#warning_2 span").html("密码为空");
+			$("#warning_2").show();
+			flag = false;
+		}
+		if (repassword == "") {
+			$("#warning_3 span").html("确认密码为空");
+			$("#warning_3").show();
+			flag = false;
+		}
+		//发送ajax请求
+			if (flag)
+				$.ajax( {
+					url : "http://localhost:8088/QQZone/user/registe.do",
+					type : "post",
+					data : {
+						"qq_user_name" : nickname,
+						"qq_user_password" : password
+					},
+					success : function(result) {
+						if (result.status == 0) {
+							//注册成功
+					//alert(result.msg);
+					$("#back").click();//触发返回按钮单击操作
+				} else if (result.status == 1) {
+					$("#warning_4 span").html(result.msg);
+					$("#warning_4").show();
+				}
+
+			},
+			error : function() {
+				alert("注册异常");
+			}
+				});
+		});
+});
+</script>
+
+	</head>
+	<body>
+		<div class="global">
+			<div class="log log_in" tabindex='-1' id='dl'>
+				<dl>
+					<dt>
+						<div class='header'>
+							<h3>
+								登录
+							</h3>
+						</div>
+					</dt>
+					<dt>
+					      <div class="letter">
+					            头&nbsp;&nbsp;&nbsp;像:
+					            <div clas="mydiv"> <img src=""/></div>
+					           
+					      </div>
+					</dt>
+					<dt>
+						<div class='letter'>
+							账&nbsp;&nbsp;&nbsp;号:
+							<input type="text" name="" id="number"  tabindex='1' />
+							<span id="number_msg"> </span>
+						</div>
+					</dt>
+					<dt>
+						<div class='letter'>
+							密&nbsp;&nbsp;&nbsp;码:&nbsp;
+							<input type="password" name="" id="password" tabindex='2' />
+							<span id="password_msg"> </span>
+						</div>
+					</dt>
+					<dt>
+						<div>
+							<input type="button" name="" id="login" value='&nbsp登&nbsp陆&nbsp'
+								tabindex='3' />
+							<input type="button" name="" id="sig_in"
+								value='&nbsp注&nbsp册&nbsp' tabindex='4' />
+						</div>
+					</dt>
+				</dl>
+			</div>
+			<div class="sig sig_out" tabindex='-1' id='zc'
+				style='visibility: hidden;'>
+				<dl>
+					<dt>
+						<div class='header'>
+							<h3>
+								注&nbsp;册
+							</h3>
+						</div>
+					</dt>
+					<dt></dt>
+					 
+					<dt>
+						<div class='letter'>
+							昵&nbsp;&nbsp;&nbsp;称:&nbsp;
+							<input type="text" name="" id="nickname" tabindex='6' />
+							<div class='warning' id='warning_4'>
+								<span></span>
+							</div>
+						</div>
+					</dt>
+					<dt>
+						<div class='letter'>
+							密&nbsp;&nbsp;&nbsp;码:&nbsp;
+							<input type="password" name="" id="regist_password" tabindex='7' />
+							<div class='warning' id='warning_2'>
+								<span  >密码长度不够</span>
+							</div>
+						</div>
+					</dt>
+					<dt>
+						<div class='password'>
+							&nbsp;&nbsp;&nbsp;确认密码:&nbsp;
+							<input type="password" name="" id="final_password" tabindex='8' />
+							<div class='warning' id='warning_3'>
+								<span>密码不一致</span>
+							</div>
+						</div>
+					</dt>
+					<dt>
+						<div>
+							<input type="button" name="" id="regist_button"
+								value='&nbsp注&nbsp册&nbsp' tabindex='9' />
+							<input type="button" name="" id="back" value='&nbsp返&nbsp回&nbsp'
+								tabindex='10' />
+							<script type="text/javascript">
+function get(e) {
+	return document.getElementById(e);
+}
+get('sig_in').onclick = function() {
+	get('dl').className = 'log log_out';
+	get('zc').className = 'sig sig_in';
+}
+get('back').onclick = function() {
+	get('zc').className = 'sig sig_out';
+	get('dl').className = 'log log_in';
+}
+window.onload = function() {
+	var t = setTimeout("get('zc').style.visibility='visible'", 800);
+	get('final_password').onblur = function() {
+		var npassword = get('regist_password').value;
+		var fpassword = get('final_password').value;
+		if (npassword != fpassword) {
+			get('warning_3').style.display = 'block';
+		}
+	}
+	get('regist_password').onblur = function() {
+		var npassword = get('regist_password').value.length;
+		if (npassword < 6 && npassword > 0) {
+			get('warning_2').style.display = 'block';
+		}
+	}
+	get('regist_password').onfocus = function() {
+		get('warning_2').style.display = 'none';
+	}
+	get('final_password').onfocus = function() {
+		get('warning_3').style.display = 'none';
+		}
+		 
+	 
+	 
+
+}
+</script>
+						</div>
+					</dt>
+				</dl>
+			</div>
+		</div>
+	</body>
+</html>

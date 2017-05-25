@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.wxf.zone.dao.SSDao">
+     <insert id="insert" parameterType="com.wxf.zone.entity.SS">
+     insert into qq_ss values(
+     #{qq_ss_id},
+     #{qq_user_id},
+     #{qq_ss_body},
+     #{qq_ss_status_id},
+     #{qq_ss_create_time}
+      
+     );
+     </insert>
+     <select id="findAllMySS" parameterType="string" resultType="com.wxf.zone.entity.SS">
+      select   user.qq_user_name,ss.* from qq_user as user,qq_ss as ss
+       where ss.qq_user_id=#{id} 
+        and user.qq_user_id=ss.qq_user_id
+        and ss.qq_ss_status_id="1"
+       
+      group by ss.qq_ss_create_time
+      desc
+      
+     </select>
+     <update id="update_ss_status" parameterType="string" >
+     
+     update qq_ss set qq_ss_status_id="2" where qq_ss_id=#{qq_ss_id}
+     </update>
+</mapper>

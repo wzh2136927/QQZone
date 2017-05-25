@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="com.wxf.zone.dao.SSOPDao">
+ <select id="findAllOP" parameterType="string" resultType="com.wxf.zone.entity.SS_OP">
+   select user.qq_user_name,op.* from qq_user as user,ss_op as op 
+   where user.qq_user_id=op.qq_user_id
+   and op.qq_ss_id=#{qq_ss_id}
+   group by op.ss_op_create_time
+   asc;
+ </select>
+ <insert id="saveop" parameterType="com.wxf.zone.entity.SS_OP">
+ insert into ss_op values(
+ #{ss_op_id},
+ #{qq_user_id},
+ #{qq_ss_id},
+ #{ss_op_create_time},
+ #{ss_op_body}
+ 
+ );
+ </insert>
+ </mapper>

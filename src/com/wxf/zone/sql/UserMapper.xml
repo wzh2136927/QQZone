@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.wxf.zone.dao.UserDao">
+
+<select resultType="com.wxf.zone.entity.User" parameterType="string" id="findByNumber"> select * from qq_user where qq_user_number=#{number} </select>
+<insert id="save" parameterType="com.wxf.zone.entity.User" >
+ insert into qq_user values(
+ #{ qq_user_id },    
+#{ qq_user_password },
+#{qq_user_name},
+#{qq_user_hp  },     
+#{ qq_user_number}
+ 
+ );
+</insert>
+<select id="findByName" parameterType="string" resultType="com.wxf.zone.entity.User">select * from qq_user where qq_user_name=#{name}</select>
+ <select id="findByUserId" parameterType="string" resultType="com.wxf.zone.entity.User">
+  select * from qq_user where qq_user_id=#{qq_user_id}
+ </select>
+</mapper>

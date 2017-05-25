@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.wxf.zone.dao.SSZanDao">
+  <insert id="insertZan" parameterType="com.wxf.zone.entity.SSZan" >
+   insert ignore into ss_zan values(
+    #{qq_ss_id},
+    #{qq_user_id}
+   );
+  </insert>
+  <select id="findAllZan" parameterType="string" 
+  resultType=
+   "com.wxf.zone.entity.SSZan" >
+  select * from ss_zan
+  where  
+  qq_ss_id=#{qq_ss_id}
+ 
+  ;
+  </select>
+</mapper>

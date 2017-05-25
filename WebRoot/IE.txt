@@ -1,0 +1,35 @@
+<link rel="Shortcut Icon" href="http://qzonestyle.gtimg.cn/aoi/img/logo/favicon.ico?max_age=31536000" type="image/x-icon">
+
+	<!--[if IE]><base href="//qzs.qq.com/"></base><![endif]-->
+	<!--[if !(IE)]><!--><link charset="utf-8" rel="stylesheet" href="./QQZone_files/ui-dialog.css"><link charset="utf-8" rel="stylesheet" href="./QQZone_files/icenter-act.css"><link charset="utf-8" rel="stylesheet" href="./QQZone_files/c_vip_hintbar_v2.css"><link charset="utf-8" rel="stylesheet" href="./QQZone_files/qz_vip_tip_v2.css"><link charset="utf-8" rel="stylesheet" href="./QQZone_files/dialog-vip-tip.css"><link charset="utf-8" rel="stylesheet" href="./QQZone_files/hot-tips2.css"><link charset="utf-8" rel="stylesheet" href="./QQZone_files/photo-scan-layer.css"><link charset="utf-8" rel="stylesheet" href="./QQZone_files/set-audience-guid.css"><!--<base href="//qzs.qq.com/">--><base href="."><!--<![endif]-->
+
+
+
+
+<!--[if IE]>
+<script type="text/javascript">
+    function toAbsURL(s) { 
+     var l = location, h, p, f, i; 
+     if (/^\w+:/.test(s)) { 
+       return s; 
+     } 
+     h = l.protocol + '//' + l.host + (l.port!=''?(':' + l.port):''); 
+     if (s.indexOf('/') == 0) { 
+       return h + s; 
+     } 
+     p = l.pathname.replace(/\/[^\/]*$/, ''); 
+     f = s.match(/\.\.\//g); 
+     if (f) { 
+       s = s.substring(f.length * 3); 
+       for (i = f.length; i--;) { 
+         p = p.substring(0, p.lastIndexOf('/')); 
+       } 
+     } 
+     return h + p + '/' + s; 
+   }
+
+
+    var base = document.getElementsByTagName('base')[0];
+    base.href = toAbsURL(base.href);
+</script>
+<![endif]-->

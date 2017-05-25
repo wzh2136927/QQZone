@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.wxf.zone.dao.SS_OP_BackDao">
+<!-- 
+ <select id="findAllBack" parameterType="string" resultType="com.wxf.zone.entity.SS_OP_Back">
+ select user.qq_user_name,reply.* from qq_user as user,ss_op_reply as reply
+ where user.
+ 
+ </select>
+ <insert id="save_reply" parameterType="com.wxf.zone.entity.SS_OP_Back" >
+ 
+  insert into ss_op_reply values
+  (
+   #{ss_op_back_id },
+#{ss_op_back_body},  
+#{ ss_op_id } ,  
+#{qq_user_name}  , 
+#{op_reply_name}
+  );
+ </insert>
+  -->
+</mapper>
